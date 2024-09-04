@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, MouseEvent } from 'react';
 import { Tool } from '../interfaces';
 import { Settings } from './Settings';
 
-export default function Canvas() {
+const Canvas = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [drawing, setDrawing] = useState(false);
     const [tool, setTool] = useState<Tool>('pencil');
@@ -128,3 +128,5 @@ export default function Canvas() {
         </div>
     );
 }
+
+export default Canvas;
