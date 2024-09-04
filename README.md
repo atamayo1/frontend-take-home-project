@@ -57,4 +57,18 @@ Good luck and if you have questions, please reach out to us at hiring@classkick.
 
 **[Bonus]**: Add other tools like Colors, Images, or something else!
 
+## Future Work
+- API Integration
+- Given additional time, I would have implemented an API to persist the state of the canvas. This would involve creating endpoints for saving and retrieving the canvas state (e.g., the drawings, text boxes, and images added). The API calls would be stubbed in the current implementation using a service layer to abstract the API interactions. This approach would allow easy swapping between a real backend and the stubbed implementation.
 
+## Unit Testing
+- I chose to focus on core functionality and the user interface due to time constraints. However, with more time, I would have added unit tests using a library like Jest. These tests would cover:
+
+- Component rendering and interaction (e.g., the canvas, drawing tools, and text boxes).
+- The behavior of the tools (e.g., the eraser and color picker).
+- Edge cases, such as handling invalid user input or resizing the canvas.
+
+## Conclusion
+- I prioritized implementing the core features to deliver a functional and intuitive user interface. I focused on creating a clean, maintainable codebase with clear separation of concerns and reusable components. While I didn't include API integration and unit tests due to time constraints, I outlined my approach to implementing these in the future.
+
+- Please refer to the SETUP.md file for instructions on running the application. I look forward to discussing this further during the next steps.
