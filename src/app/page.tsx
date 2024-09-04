@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image'
 import styles from './page.module.css'
-import Canvas from './Canvas'
+import Canvas from './components/Canvas'
 
 export default function Home() {
   return (

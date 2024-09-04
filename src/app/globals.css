@@ -106,3 +106,28 @@ a {
     color-scheme: dark;
   }
 }
+
+.settings-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 3.5rem;
+  background-color: #ccc;
+  padding: 0.3rem;
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: black;
+}
+
+.color-picker {
+  cursor: pointer;
+  width: 2.2rem;
+  height: 2.5rem;
+}
+
+.upload-label {
+  cursor: pointer;
+  margin-left: 0.3rem;
+}
