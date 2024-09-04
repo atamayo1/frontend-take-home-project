@@ -50,4 +50,11 @@ Just remember: when in doubt, treat this project as though you are about to subm
 
 Good luck and if you have questions, please reach out to us at hiring@classkick.com
 
+## I finished those functionalities
+- Create a `Drawing`
+- Create a `Textbox`
+- Add an `Eraser Tool` as a smudge eraser
+
+**[Bonus]**: Add other tools like Colors, Images, or something else!
+
 
