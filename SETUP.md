@@ -41,11 +41,12 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/)
 
+## Internal Documentation Summary for Canvas Component
 
-Internal Documentation Summary for Canvas Component: canvasRef Reference: Used to access the canvas's drawing context, allowing for efficient operations without the need for repeated DOM lookups.
+- canvasRef Reference: Used to access the canvas's drawing context, allowing for efficient operations without the need for repeated DOM lookups.
 
-State Handling: Each state has a clear purpose and how it affects the behavior of the component is documented (e.g., drawing to control whether the user is drawing, tool to select the current tool, textBoxes to store positions and text, etc.).
+- State Handling: Each state has a clear purpose and how it affects the behavior of the component is documented (e.g., drawing to control whether the user is drawing, tool to select the current tool, textBoxes to store positions and text, etc.).
 
-Function Comments: Explains what each function does (startDrawing, draw, stopDrawing) and how it interacts with states and the canvas reference.
+- Function Comments: Explains what each function does (startDrawing, draw, stopDrawing) and how it interacts with states and the canvas reference.
 
-useEffect Effects: Documents how effects initialize the canvas and redraw its contents when the relevant states change.
+- useEffect Effects: Documents how effects initialize the canvas and redraw its contents when the relevant states change.
