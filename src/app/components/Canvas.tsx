@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useRef, useState, useEffect, MouseEvent } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEraser, faPencilAlt, faTextHeight } from '@fortawesome/free-solid-svg-icons';
-
-type Tool = 'pencil' | 'text' | 'eraser';
+import { Tool } from '../interfaces';
+import { Settings } from './Settings';
 
 export default function Canvas() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [drawing, setDrawing] = useState(false);
     const [tool, setTool] = useState<Tool>('pencil');
     const [textBoxes, setTextBoxes] = useState<{ x: number, y: number, text: string }[]>([]);
+    const [color, setColor] = useState<string>('#000000');
+    const [image, setImage] = useState<HTMLImageElement | null>(null);
 
     const startDrawing = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
         if (tool === 'pencil' || tool === 'eraser') {
@@ -23,6 +23,7 @@ export default function Canvas() {
                 } else {
                     ctx.globalCompositeOperation = 'source-over';
                     ctx.lineWidth = 4;
+                    ctx.strokeStyle = color;
                 }
                 ctx.beginPath();
                 ctx.moveTo(offsetX, offsetY);
@@ -33,6 +34,14 @@ export default function Canvas() {
             const text = prompt('Enter text:');
             if (text) {
                 setTextBoxes([...textBoxes, { x: offsetX, y: offsetY, text }]);
+            }
+        } else if (tool === 'image') {
+            const { offsetX, offsetY } = nativeEvent;
+            if (image) {
+                const ctx = canvasRef.current?.getContext('2d');
+                if (ctx) {
+                    ctx.drawImage(image, offsetX, offsetY, 100, 100);
+                }
             }
         }
     };
@@ -52,8 +61,18 @@ export default function Canvas() {
             const ctx = canvasRef.current?.getContext('2d');
             if (ctx) {
                 ctx.closePath();
+                ctx.globalCompositeOperation = 'source-over';
             }
             setDrawing(false);
+        }
+    };
+
+    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const img = new Image();
+            img.onload = () => setImage(img);
+            img.src = URL.createObjectURL(file);
         }
     };
 
@@ -80,23 +99,22 @@ export default function Canvas() {
                 ctx.fillStyle = '#000';
                 ctx.fillText(text, x, y);
             });
+
+            if (image) {
+                ctx.drawImage(image, 50, 50, 100, 100);
+            }
         }
-    }, [textBoxes]);
+    }, [textBoxes, image]);
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', height: '3.5rem', backgroundColor: '#ccc', padding: '0.3rem' }}>
-                <button onClick={() => setTool('pencil')} style={tool === 'pencil' ? { backgroundColor: 'white', border: '3px solid gray', width: '2.2rem', height: '2.5rem' } : { backgroundColor: 'white', border: '1px solid gray', width: '2.2rem', height: '2.5rem' }}>
-                    <FontAwesomeIcon icon={faPencilAlt} style={{ fontSize: '1.5rem', color: 'black' }} />
-                </button>
-                <button onClick={() => setTool('text')} style={tool === 'text' ? { backgroundColor: 'white', border: '3px solid gray', width: '2.2rem', height: '2.5rem', marginInline: '0.2rem' } : { backgroundColor: 'white', border: '1px solid gray', width: '2.2rem', height: '2.5rem', marginInline: '0.2rem' }}>
-                    <FontAwesomeIcon icon={faTextHeight} style={{ fontSize: '1.5rem', color: 'white', border: '1px solid darkblue', height: '1.3rem', marginTop: 0.5 }} />
-                </button>
-                <button onClick={() => setTool('eraser')} style={tool === 'eraser' ? { backgroundColor: 'white', border: '3px solid gray', width: '2.2rem', height: '2.5rem' } : { backgroundColor: 'white', border: '1px solid gray', width: '2.2rem', height: '2.5rem' }}>
-                    <FontAwesomeIcon icon={faEraser} style={{ fontSize: '1.5rem', color: 'black', marginTop: 0.5 }} />
-                </button>
-            </div>
-
+            <Settings 
+                tool={tool}
+                setTool={setTool}
+                color={color}
+                setColor={setColor}
+                handleImageUpload={handleImageUpload} 
+            />
             <canvas
                 ref={canvasRef}
                 onMouseDown={startDrawing}
